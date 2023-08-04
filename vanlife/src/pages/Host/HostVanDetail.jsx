@@ -1,7 +1,7 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom"
+import { useParams, Link, Outlet } from "react-router-dom"
 
-export default function VanDetail() {
+export default function HostVanDetail() {
     const params = useParams()
     const [van, setVan] = React.useState(null)
 
@@ -12,18 +12,29 @@ export default function VanDetail() {
     }, [params.id])
 
     return (
-        <div className="van-detail-container">
-            {van ? (
-                <div className="van-detail">
+        <section>
+            <Link
+                to=".."
+                relative="path"
+                className="back-button"
+            >&larr; <span>Back to all vans</span></Link>
+
+            <div className="host-van-detail-layout-container">
+                {van ? (
+                <div className="host-van-detail">
                     <img src={van.imageUrl} alt={`Photo of a van called ${van.name}`}/>
-                    <i className={`van-type ${van.type} selected`}>{van.type}</i>
-                    <h2>{van.name}</h2>
-                    <p className="van-price"><span>${van.price}</span>/day</p>
-                    <Link>Details</Link>
-                    <Link>Pricing</Link>
-                    <Link>Photos</Link>
+                    <div className="host-van-detail-info-text">                
+                        <i className={`van-type ${van.type} selected`}>{van.type}</i>
+                        <h2>{van.name}</h2>
+                        <p className="van-price"><span>${van.price}</span>/day</p>
+                        <Link to=".">Details</Link>
+                        <Link to="pricing">Pricing</Link>
+                        <Link to="photos">Photos</Link>
+                    </div>
                 </div>
             ) : <h2>Loading...</h2>}
-        </div>
+                <Outlet />
+            </div>
+        </section>
     )
 }
