@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, Link, NavLink, Outlet } from "react-router-dom"
 
 export default function HostVanDetail() {
-    const params = useParams()
+    const { id } = useParams()
     const [van, setVan] = React.useState(null)
 
     const activeStyles = {
@@ -12,11 +12,14 @@ export default function HostVanDetail() {
     }
 
     React.useEffect(() => {
-        fetch(`/api/host/vans/${params.id}`)
+        fetch(`/api/host/vans/${id}`)
             .then(res => res.json())
             .then(data => setVan(data.vans))
-    }, [params.id])
+    }, [])
 
+    if (!van) {
+        return <h1>Loading...</h1>
+    }
     return (
         <section>
             <Link
@@ -57,7 +60,7 @@ export default function HostVanDetail() {
                         Photos
                     </NavLink>                    
                 </nav>
-                <Outlet />
+                <Outlet context={{ van }} />
             </div>
         </section>
     )
