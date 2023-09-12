@@ -16,7 +16,7 @@ export default function HostVans() {
             className="host-van-link-wrapper"
         >
             <div key={van.id} className="host-van-single">
-                    <img src={van.imageUrl} alt={`Photo of a van called ${van.name}`}/>
+                    <img src={van.imageUrl} alt={`Van called ${van.name}`}/>
                     <div className="host-van-info">
                         <h3>{van.name}</h3>
                         <p>${van.price}/day</p>
